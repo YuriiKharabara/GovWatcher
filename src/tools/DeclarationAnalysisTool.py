@@ -3,7 +3,7 @@ import openai
 from textwrap import dedent
 import json
 
-from const import DECLARATIONS_ANALYSIS_RESPONSE_SCHEMA, DECLARATIONS_ANALYSIS_PROMPT
+from src.const import DECLARATIONS_ANALYSIS_RESPONSE_SCHEMA, DECLARATIONS_ANALYSIS_PROMPT
 
 
 class DeclarationAnalysisTool:

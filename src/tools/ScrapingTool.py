@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from textwrap import dedent
 import json
 
-from const import SCRAPING_RESPONSE_SCHEMA, SCRAPING_PROMPT
+from src.const import SCRAPING_RESPONSE_SCHEMA, SCRAPING_PROMPT
 
 
 class ScrapingTool:
