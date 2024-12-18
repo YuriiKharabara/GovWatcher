@@ -9,20 +9,31 @@ load_dotenv()
 
 def analyze_url(url: str):
     scraping_tool = ScrapingTool()
-    declarations_data = scraping_tool.get_declarations_data(url)
+    declarations_data = scraping_tool.extract_declarations_data(url)
     print("scrapped declarations")
+
     declaration_analysis_tool = DeclarationAnalysisTool()
     declarations_analysis = declaration_analysis_tool.analyze_declarations(declarations_data)
     print("analyzed declarations")
-    # TODO: Implement Bihus tool and call it here
+
     bihus_analysis_tool = ArticleAnalyzer()
     bihus_analysis = bihus_analysis_tool.analyze_person(declarations_data[0]["politician_name"] + " " + declarations_data[0]["politician_surname"])
-    print("bihus scrapped")
-    from pprint import pprint
-    pprint(bihus_analysis)
-    # TODO: Implement score calculation logic
+    print("analyzed bihus")
 
-
+    score = 0
+    for key, details in declarations_analysis.items():
+        value = details.get("value")
+        if isinstance(value, bool):
+            score += int(value)
+        elif isinstance(value, (int, float)):
+            score += value
+    bihus_final_score = bihus_analysis["aggregated_metrics"].get("final_score", {})
+    for key, value in bihus_final_score.items():
+        if isinstance(value, bool):
+            score += int(value)
+        elif isinstance(value, (int, float)):
+            score += value
+    print("final score", score)
 
     # TODO: Implement report generation and call it here
 

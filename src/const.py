@@ -139,7 +139,7 @@ DECLARATIONS_ANALYSIS_RESPONSE_SCHEMA = {
                 },
                 "references": {
                     "type": "array",
-                    "description": "List of direct references to declarations supporting this conclusion.",
+                    "description": "List of direct references to declarations supporting this conclusion. In format: 'Declaration [number] ([year if present]): [fact that supports this conclusion].'",
                     "items": {
                         "type": "string"
                     }
@@ -161,7 +161,7 @@ DECLARATIONS_ANALYSIS_RESPONSE_SCHEMA = {
                 },
                 "references": {
                     "type": "array",
-                    "description": "List of direct references to declarations indicating sudden changes.",
+                    "description": "List of direct references to declarations indicating sudden changes. In format: 'Declaration [number] ([year if present]): [fact that supports this conclusion].'",
                     "items": {
                         "type": "string"
                     }
@@ -183,7 +183,7 @@ DECLARATIONS_ANALYSIS_RESPONSE_SCHEMA = {
                 },
                 "references": {
                     "type": "array",
-                    "description": "List of direct references to declarations illustrating the property-income mismatch.",
+                    "description": "List of direct references to declarations illustrating the property-income mismatch. In format: 'Declaration [number] ([year if present]): [fact that supports this conclusion].'",
                     "items": {
                         "type": "string"
                     }

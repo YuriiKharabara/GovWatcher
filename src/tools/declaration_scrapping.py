@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 from textwrap import dedent
 import json
 
+from tqdm import tqdm
+
 from src.const import SCRAPING_RESPONSE_SCHEMA, SCRAPING_PROMPT
 
 
@@ -48,7 +50,7 @@ class ScrapingTool:
 
     def scrape_declaration(self, urls: List[str]) -> List[str]:
         wrappers = []
-        for url in urls:
+        for url in tqdm(urls, desc="Scraping declarations", unit="declaration"):
             response = requests.get(url, headers=self.headers)
             if response.status_code == 200:
                 soup = BeautifulSoup(response.content, 'html.parser')
@@ -76,7 +78,7 @@ class ScrapingTool:
         event = response.choices[0].message
         return event.content
 
-    def get_declarations_data(self, url) -> Optional[List[dict]]:
+    def extract_declarations_data(self, url) -> Optional[List[dict]]:
         declarations_urls = self.get_declarations_urls(url)
         if not declarations_urls:
             print("Failed to fetch declarations")
@@ -89,8 +91,8 @@ class ScrapingTool:
             return None
 
         results = []
-        for wrapper in scraped_declaration:
-            question = f"Extract information from this refined HTML response {wrapper}"
+        for wrapper in tqdm(scraped_declaration, desc="Extracting data from declarations", unit="declaration"):
+            question = f"Extract information from this refined HTML response:\n{wrapper}"
             chat_response = self.get_response(question)
             result = json.loads(chat_response)
             results.append(result)
