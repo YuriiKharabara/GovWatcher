@@ -10,15 +10,16 @@ load_dotenv()
 def analyze_url(url: str):
     scraping_tool = ScrapingTool()
     declarations_data = scraping_tool.get_declarations_data(url)
-
+    print("scrapped declarations")
     declaration_analysis_tool = DeclarationAnalysisTool()
     declarations_analysis = declaration_analysis_tool.analyze_declarations(declarations_data)
-
+    print("analyzed declarations")
     # TODO: Implement Bihus tool and call it here
     bihus_analysis_tool = ArticleAnalyzer()
-    bihus_analysis = ArticleAnalyzer.analyze_person(declarations_data["full_name"])
-
-
+    bihus_analysis = bihus_analysis_tool.analyze_person(declarations_data[0]["politician_name"] + " " + declarations_data[0]["politician_surname"])
+    print("bihus scrapped")
+    from pprint import pprint
+    pprint(bihus_analysis)
     # TODO: Implement score calculation logic
 
 
