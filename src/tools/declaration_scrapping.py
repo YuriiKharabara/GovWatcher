@@ -13,7 +13,11 @@ class ScrapingTool:
         self.client = openai.OpenAI()
         self.model = "gpt-4o-2024-08-06"
         self.headers = {
-            "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+            "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/91.0.4472.124 Safari/537.36"
+        ),
             'referer': "https://youcontrol.com.ua/"
         }
         self.response_format = {

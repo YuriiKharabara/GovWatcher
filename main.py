@@ -1,9 +1,9 @@
 import gradio as gr
 from dotenv import load_dotenv
 
-from tools.ScrapingTool import ScrapingTool
-from tools.DeclarationAnalysisTool import DeclarationAnalysisTool
-
+from src.tools.declaration_scrapping import ScrapingTool
+from src.tools.declaration_analysis import DeclarationAnalysisTool
+from src.tools.bihus_analyser import ArticleAnalyzer
 load_dotenv()
 
 
@@ -15,8 +15,13 @@ def analyze_url(url: str):
     declarations_analysis = declaration_analysis_tool.analyze_declarations(declarations_data)
 
     # TODO: Implement Bihus tool and call it here
+    bihus_analysis_tool = ArticleAnalyzer()
+    bihus_analysis = ArticleAnalyzer.analyze_person(declarations_data["full_name"])
+
 
     # TODO: Implement score calculation logic
+
+
 
     # TODO: Implement report generation and call it here
 

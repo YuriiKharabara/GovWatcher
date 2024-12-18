@@ -1,37 +1,41 @@
 SCRAPING_RESPONSE_SCHEMA = {
     "type": "object",
     "properties": {
-        "type_dec": {"type": "string"},
-        "year": {"type": "string"},
-        "registration_place": {"type": "string"},
-        "place_of_work": {"type": "string"},
-        "position_held": {"type": "string"},
+        "politician_name": {"type": "string", "description": "Name of the politician"},
+        "politician_surname": {"type": "string", "description": "Surname of the politician"},
+        "type_dec": {"type": "string", "description": "Type of declaration"},
+        "year": {"type": "string", "description": "Year of the declaration"},
+        "registration_place": {"type": "string", "description": "Registration place of the politician"},
+        "place_of_work": {"type": "string", "description": "Place of work of the politician"},
+        "position_held": {"type": "string", "description": "Position held by the politician"},
         "family_members": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "connection": {"type": "string"},
-                    "name": {"type": "string"},
-                    "surname": {"type": "string"},
-                    "nationality": {"type": "string"}
+                    "connection": {"type": "string", "description": "Connection to the politician"},
+                    "name": {"type": "string", "description": "Name of the family member"},
+                    "surname": {"type": "string", "description": "Surname of the family member"},
+                    "nationality": {"type": "string", "description": "Nationality of the family member"}
                 },
                 "required": ["connection", "name", "surname", "nationality"],
                 "additionalProperties": False  # Added
-            }
+            },
+            "description": "List of family members of the politician"
         },
         "real_estate": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "area": {"type": "number"},
-                    "location": {"type": "string"},
-                    "price": {"type": "number"},
-                    "currency": {"type": "string"}
+                    "area": {"type": "number", "description": "Area of the real estate"},
+                    "location": {"type": "string", "description": "Location of the real estate"},
+                    "price": {"type": "number", "description": "Price of the real estate"},
+                    "currency": {"type": "string", "description": "Currency of the price"}
                 },
                 "required": ["area", "location", "price", "currency"],
-                "additionalProperties": False  # Added
+                "additionalProperties": False,  # Added
+                "description": "List of real estate owned by the politician"
             }
         },
         "vehicles": {
@@ -39,13 +43,14 @@ SCRAPING_RESPONSE_SCHEMA = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "model": {"type": "string"},
-                    "price": {"type": "number"},
-                    "currency": {"type": "string"}
+                    "model": {"type": "string", "description": "Model of the vehicle"},
+                    "price": {"type": "number", "description": "Price of the vehicle"},
+                    "currency": {"type": "string", "description": "Currency of the price"}
                 },
                 "required": ["model", "price", "currency"],
                 "additionalProperties": False  # Added
-            }
+            },
+            "description": "List of vehicles owned by the politician"
         },
         "financial_data": {
             "type": "object",
@@ -55,13 +60,14 @@ SCRAPING_RESPONSE_SCHEMA = {
                     "items": {
                         "type": "object",
                         "properties": {
-                            "source": {"type": "string"},
-                            "type": {"type": "string"},
-                            "amount": {"type": "number"},
-                            "currency": {"type": "string"}
+                            "source": {"type": "string", "description": "Source of the income"},
+                            "type": {"type": "string", "description": "Type of the income"},
+                            "amount": {"type": "number", "description": "Amount of the income"},
+                            "currency": {"type": "string", "description": "Currency of the income"}
                         },
                         "required": ["source", "type", "amount", "currency"],
-                        "additionalProperties": False  # Added
+                        "additionalProperties": False,  # Added
+                        "description": "Income including gifts of the politician"
                     }
                 },
                 "assets": {
@@ -69,22 +75,24 @@ SCRAPING_RESPONSE_SCHEMA = {
                     "items": {
                         "type": "object",
                         "properties": {
-                            "type": {"type": "string"},
-                            "amount": {"type": "number"},
-                            "currency": {"type": "string"}
+                            "type": {"type": "string", "description": "Type of the asset"},
+                            "amount": {"type": "number", "description": "Amount of the asset"},
+                            "currency": {"type": "string", "description": "Currency of the asset"}
                         },
                         "required": ["type", "amount", "currency"],
                         "additionalProperties": False  # Added
-                    }
+                    },
+                    "description": "Assets of the politician"
                 }
             },
             "required": ["income_including_gifts", "assets"],
-            "additionalProperties": False  # Added
+            "additionalProperties": False,  # Added
+            "description": "Financial data of the politician"
         }
     },
     "required": [
         "type_dec", "year", "registration_place", "place_of_work",
-        "position_held", "family_members", "real_estate", "vehicles", "financial_data"
+        "position_held", "family_members", "real_estate", "vehicles", "financial_data", "politician_name", "politician_surname"
     ],
     "additionalProperties": False  # Added
 }
