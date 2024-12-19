@@ -43,21 +43,14 @@ def analyze_url(url: str):
 
     gauge = report_gen.create_score_gauge()
 
-    combined_data = {
-        "declarations_analysis": declarations_analysis,
-        "bihus_analysis": bihus_analysis,
-        "final_score": score
-    }
-
-    return combined_data, report, gauge
+    return gauge, report
 
 demo = gr.Interface(
     fn=analyze_url,
     inputs=gr.Textbox(label="Enter URL"),
     outputs=[
-        gr.JSON(label="Analysis Result"),
-        gr.HTML(label="Summary Report"),
-        gr.Plot(label="Suspicion Gauge")
+        gr.Plot(label="Suspicion Gauge"),
+        gr.HTML(label="Summary Report")
     ],
     title="Declaration Analysis Tool",
     description="Enter a URL to a politician's declarations page and get an analysis."
