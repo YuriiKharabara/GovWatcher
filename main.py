@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from src.tools.declaration_scrapping import ScrapingTool
 from src.tools.declaration_analysis import DeclarationAnalysisTool
 from src.tools.bihus_analyser import ArticleAnalyzer
+from src.tools.report_generator import ReportGenerator
 load_dotenv()
 
 
@@ -27,24 +28,37 @@ def analyze_url(url: str):
             score += int(value)
         elif isinstance(value, (int, float)):
             score += value
+
     bihus_final_score = bihus_analysis["aggregated_metrics"].get("final_score", {})
     for key, value in bihus_final_score.items():
         if isinstance(value, bool):
             score += int(value)
         elif isinstance(value, (int, float)):
             score += value
+
     print("final score", score)
 
-    # TODO: Implement report generation and call it here
+    report_gen = ReportGenerator(bihus_analysis, declarations_analysis, score)
+    report = report_gen.generate_report()
 
-    return declarations_analysis
+    gauge = report_gen.create_score_gauge()
 
+    combined_data = {
+        "declarations_analysis": declarations_analysis,
+        "bihus_analysis": bihus_analysis,
+        "final_score": score
+    }
+
+    return combined_data, report, gauge
 
 demo = gr.Interface(
-# TODO: Implement report presentation in Gradio
     fn=analyze_url,
     inputs=gr.Textbox(label="Enter URL"),
-    outputs=gr.JSON(label="Analysis Result"),
+    outputs=[
+        gr.JSON(label="Analysis Result"),
+        gr.HTML(label="Summary Report"),
+        gr.Plot(label="Suspicion Gauge")
+    ],
     title="Declaration Analysis Tool",
     description="Enter a URL to a politician's declarations page and get an analysis."
 )
