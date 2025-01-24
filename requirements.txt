@@ -1,0 +1,6 @@
+openai
+gradio
+python-dotenv
+fuzzywuzzy
+plotly
+markdown
